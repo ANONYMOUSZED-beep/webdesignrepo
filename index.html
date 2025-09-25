@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Figma Design Portfolio</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <h1 class="logo">
+                <i class="fab fa-figma"></i>
+                Design Portfolio
+            </h1>
+            <nav class="nav">
+                <button id="addPrototypeBtn" class="btn btn-primary">
+                    <i class="fas fa-plus"></i>
+                    Add New Prototype
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main">
+        <div class="container">
+            <!-- Search and Filter Section -->
+            <section class="controls">
+                <div class="search-bar">
+                    <input type="text" id="searchInput" placeholder="Search prototypes..." class="search-input">
+                    <i class="fas fa-search search-icon"></i>
+                </div>
+                
+                <div class="filters">
+                    <select id="categoryFilter" class="filter-select">
+                        <option value="">All Categories</option>
+                        <option value="mobile-app">Mobile App</option>
+                        <option value="web-app">Web App</option>
+                        <option value="website">Website</option>
+                        <option value="ui-kit">UI Kit</option>
+                        <option value="other">Other</option>
+                    </select>
+                    
+                    <select id="sortBy" class="filter-select">
+                        <option value="newest">Newest First</option>
+                        <option value="oldest">Oldest First</option>
+                        <option value="alphabetical">A-Z</option>
+                    </select>
+                </div>
+            </section>
+
+            <!-- Prototypes Grid -->
+            <section class="prototypes-section">
+                <div id="prototypesGrid" class="prototypes-grid">
+                    <!-- Prototypes will be dynamically inserted here -->
+                </div>
+                
+                <div id="emptyState" class="empty-state">
+                    <i class="fas fa-drafting-compass"></i>
+                    <h3>No prototypes yet</h3>
+                    <p>Start building your design portfolio by adding your first Figma prototype!</p>
+                    <button class="btn btn-primary" onclick="openAddModal()">
+                        <i class="fas fa-plus"></i>
+                        Add Your First Prototype
+                    </button>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Add/Edit Modal -->
+    <div id="prototypeModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Add New Prototype</h2>
+                <button class="close-btn" onclick="closeModal()">&times;</button>
+            </div>
+            
+            <form id="prototypeForm" class="form">
+                <div class="form-group">
+                    <label for="prototypeTitle">Title *</label>
+                    <input type="text" id="prototypeTitle" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="prototypeDescription">Description</label>
+                    <textarea id="prototypeDescription" rows="3"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="figmaUrl">Figma URL *</label>
+                    <input type="url" id="figmaUrl" placeholder="https://www.figma.com/proto/..." required>
+                    <small>Paste the shareable Figma prototype link</small>
+                </div>
+                
+                <div class="form-group">
+                    <label for="prototypeCategory">Category</label>
+                    <select id="prototypeCategory">
+                        <option value="mobile-app">Mobile App</option>
+                        <option value="web-app">Web App</option>
+                        <option value="website">Website</option>
+                        <option value="ui-kit">UI Kit</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="prototypeTags">Tags</label>
+                    <input type="text" id="prototypeTags" placeholder="e.g., ecommerce, dashboard, mobile">
+                    <small>Separate tags with commas</small>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Prototype</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Prototype Detail Modal -->
+    <div id="detailModal" class="modal">
+        <div class="modal-content modal-large">
+            <div class="modal-header">
+                <h2 id="detailTitle"></h2>
+                <div class="modal-actions">
+                    <button class="btn btn-small btn-secondary" onclick="editPrototype()">
+                        <i class="fas fa-edit"></i>
+                        Edit
+                    </button>
+                    <button class="btn btn-small btn-danger" onclick="deletePrototype()">
+                        <i class="fas fa-trash"></i>
+                        Delete
+                    </button>
+                    <button class="close-btn" onclick="closeDetailModal()">&times;</button>
+                </div>
+            </div>
+            
+            <div class="modal-body">
+                <div id="detailDescription" class="detail-description"></div>
+                <div id="detailTags" class="detail-tags"></div>
+                <div id="figmaEmbed" class="figma-embed">
+                    <iframe id="figmaFrame" width="100%" height="600" frameborder="0" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
